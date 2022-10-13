@@ -37,7 +37,8 @@ def main():
     import pymetis
 
     # Calculate the pmetis partition
-    adj = []
+'''
+   adj = []
     for i in range(0, len(adjacency)):
         tmp = []
         for j in range(0, len(adjacency[i])):
@@ -45,7 +46,7 @@ def main():
                 tmp.append(adjacency[i][j])
         adj.append(np.array(tmp))
     n_cuts, membership = pymetis.part_graph(2, adjacency=adj) 
-
+'''
     #import csv
     #file = open('res_bar.csv', 'w', newline ='')
     
