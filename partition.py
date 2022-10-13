@@ -37,7 +37,7 @@ def main():
     import pymetis
 
     # Calculate the pmetis partition
-'''
+    '''
    adj = []
     for i in range(0, len(adjacency)):
         tmp = []
@@ -46,11 +46,10 @@ def main():
                 tmp.append(adjacency[i][j])
         adj.append(np.array(tmp))
     n_cuts, membership = pymetis.part_graph(2, adjacency=adj) 
-'''
+
     #import csv
     #file = open('res_bar.csv', 'w', newline ='')
-    
-    '''with file:
+    with file:
         # using csv.writer method from CSV package
         write = csv.writer(file)
         mem = []
@@ -60,7 +59,7 @@ def main():
 
     print("####ALL")
     print(n_cuts, membership) 
-'''
+    '''
     # Calculate degrees
     degree = np.array(list(map(lambda x: np.sum(x), adjacency)), dtype=float)
     D = np.diag(np.sqrt(1 / degree))
@@ -79,6 +78,12 @@ def main():
     
     # Spectral partition with normalized Laplacian matrix
     print("Spectral vector:", spec)
+    print("Spectral vector:", spec)
+    #adj1 = np.zeros((nofVertices, nofVertices), dtype=int)
+
+    #for i in range (0, len(spec)):
+    #    if spec[i] == 0:
+
     spec_score = objective(spec, E, k)
     # Unnormalized Laplacian matrix without the first eigenvector partition.
     #print("unnormalized spectral vector:", og_spec)
