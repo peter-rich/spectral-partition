@@ -11,6 +11,10 @@ def main():
     nofVertices = 0
     nofEdges = 0
     k = 2
+
+    nofVertices = 200
+    adjacency = np.zeros((nofVertices, nofVertices), dtype=int)
+        
     if not filename:
         print("no filename")
         return
@@ -18,8 +22,6 @@ def main():
         #data = pd.ExcelFile("graphs_processed/"+filename)
         
         f = open("graphs_processed/"+filename, "r")
-        nofVertices = 200
-        adjacency = np.zeros((nofVertices, nofVertices), dtype=int)
         #print(data[0])
         for line in f:
             meta = line.split(" ")
@@ -64,8 +66,8 @@ def main():
     DD = np.diag(degree)
 
     # Compute clusterings
-    kmeans_fiedler = fiedler(adjacency, D, k)
-    #spec = spectral(adjacency, D, k)
+    #kmeans_fiedler = fiedler(adjacency, D, k)
+    spec = spectral(adjacency, D, k)
     #og_spec = ogSpectral(adjacency, DD, k)
 
     print("####Break here####")
