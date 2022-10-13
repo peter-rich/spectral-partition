@@ -78,11 +78,22 @@ def main():
     
     # Spectral partition with normalized Laplacian matrix
     print("Spectral vector:", spec)
-    print("Spectral vector:", spec)
-    #adj1 = np.zeros((nofVertices, nofVertices), dtype=int)
-
-    #for i in range (0, len(spec)):
-    #    if spec[i] == 0:
+    len_1, len_2 = 0, 0
+    adj1 = np.zeros((nofVertices, nofVertices), dtype=int)
+    adj2 = np.zeros((nofVertices, nofVertices), dtype=int)
+    for i in range (0, len(spec)):
+        if spec[i] == 0:
+            len_1 += 1
+            for j in range(0, nofVertices):
+                if adjacency[i][j] == 1 and spec[adjacency[i][j]] == 0:
+                    adj1[i][j] = 1
+        else:
+            len_2 += 1
+            for j in range(0, nofVertices):
+                if adjacency[i][j] == 1 and spec[adjacency[i][j]] == 1:
+                    adj2[i][j] = 1
+    print("Length of 1:", len_1)
+    print("Length of 2:", len_2) 
 
     spec_score = objective(spec, E, k)
     # Unnormalized Laplacian matrix without the first eigenvector partition.
@@ -91,6 +102,8 @@ def main():
 
     #print("kmeans fiedler:", kmeans_fiedler_score)
     print("spec:", spec_score)
+    print("Adj1:", adj1)
+    print("Adj2:", adj2)
     #print("og spec:", og_spec_score)
 
     #writeRes("fiedler", filename, nofVertices, nofEdges, k, kmeans_fiedler)
