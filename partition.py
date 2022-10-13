@@ -106,7 +106,7 @@ def fiedler(A, D, k):
 
 # Basic normalized spectral clustering
 def spectral(A, D, k):
-    L = np.identity(A.shape[0]) - D @ A @ D
+    L = np.identity(A.shape[0]) - D @ A @ D # @ is matrix multiplication operation
     V, eig = eigsh(L, k)
     
     U = eig
