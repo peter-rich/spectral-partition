@@ -66,9 +66,10 @@ def main():
     DD = np.diag(degree)
 
     # Compute clusterings
-    #kmeans_fiedler = fiedler(adjacency, D, k)
-    spec = spectral(adjacency, D, k)
-    #og_spec = ogSpectral(adjacency, DD, k)
+    #kmeans_fiedler
+    #spec = fiedler(adjacency, D, k)
+    #spec = spectral(adjacency, D, k)
+    spec = ogSpectral(adjacency, DD, k)
 
     print("####Break here####")
     # Calculate scores
@@ -126,7 +127,7 @@ def fiedler(A, D, k):
 # Basic normalized spectral clustering
 def spectral(A, D, k):
     L = np.identity(A.shape[0]) - D @ A @ D # @ is matrix multiplication operation
-    V, eig = eigsh(L, k)
+    V, eig = eigsh(L, 2)
     
     U = eig
     U_rowsums = U.sum(axis=1)
@@ -137,11 +138,17 @@ def spectral(A, D, k):
 
 # Spectral clustering without the first eigenvector
 def ogSpectral(A, D, k):
+    res = []
     L = D - A
-    w, eig = eigsh(L, k+1, which="SA")
+    w, eig = eigsh(L, 2, which="SA")
+    #print("eig", eig)
     # Drop the first eigenvector
     U = eig.T[1::].T
-    res = KMeans(n_clusters=k).fit_predict(U)
+    for i in range(0, len(U)):
+        if eig[i][1] < 0:
+            res.append(0)
+        else:
+            res.append(1)
     return res
 
 def writeRes(alg, name, nofV, nofE, k, clustering):
